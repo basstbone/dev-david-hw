@@ -1,7 +1,7 @@
 $(document).ready(function() {
   let score = 0;
   const gridSize = 5; // 5x5 grid
-  let playerPosition = { row: 1, col: 1 }; // Initial position of the game piece (1-based grid positions)
+  let playerPosition = { row: 1, col: 1 }; // Initial position of the game piece
   let targetPosition = generateRandomPosition(); // Random target position
 
   // Function to move the game piece on the grid
@@ -10,6 +10,7 @@ $(document).ready(function() {
       'grid-row': playerPosition.row,
       'grid-column': playerPosition.col
     });
+    console.log("Player position updated to row: " + playerPosition.row + ", col: " + playerPosition.col);
   }
 
   // Function to move the target to a random grid cell
@@ -18,6 +19,7 @@ $(document).ready(function() {
       'grid-row': targetPosition.row,
       'grid-column': targetPosition.col
     });
+    console.log("Target position updated to row: " + targetPosition.row + ", col: " + targetPosition.col);
   }
 
   // Generate a random position within the 5x5 grid
@@ -36,33 +38,31 @@ $(document).ready(function() {
   $(document).keydown(function(e) {
     switch (e.key) {
       case "ArrowUp":
-        if (playerPosition.row == 1) {
-          break;
-        } else {
+        e.preventDefault(); // Prevent page scrolling
+        if (playerPosition.row > 1) {
           playerPosition.row--;
         }
         break;
       case "ArrowDown":
-        if (playerPosition.row == gridSize) {
-          break;
-        } else {
+        e.preventDefault(); // Prevent page scrolling
+        if (playerPosition.row < gridSize) {
           playerPosition.row++;
         }
         break;
       case "ArrowLeft":
-        if (playerPosition.col == 1) {
-          break;
-        } else {
+        e.preventDefault(); // Prevent page scrolling
+        if (playerPosition.col > 1) {
           playerPosition.col--;
         }
         break;
       case "ArrowRight":
-        if (playerPosition.row == gridSize) {
-          break;
-        } else {
-          playerPosition.row++;
+        e.preventDefault(); // Prevent page scrolling
+        if (playerPosition.col < gridSize) {
+          playerPosition.col++;
         }
         break;
+      default:
+        return; // Exit if it's not an arrow key
     }
 
     // Update the game piece position on the grid
