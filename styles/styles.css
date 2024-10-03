@@ -28,7 +28,7 @@ footer {
 
 #game-piece {
   background-color: #007bff;
-  grid-row: "playerPosition.row";
+  grid-row: playerPosition.row;
   grid-column: 'playerPosition.col';
 }
 
