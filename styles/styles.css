@@ -28,8 +28,8 @@ footer {
 
 #game-piece {
   background-color: #007bff;
-  grid-row: 1;
-  grid-column: 1;
+  grid-row: "playerPosition.row";
+  grid-column: 'playerPosition.col';
 }
 
 #target {
