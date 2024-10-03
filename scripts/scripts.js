@@ -10,7 +10,6 @@ $(document).ready(function() {
       'grid-row': playerPosition.row,
       'grid-column': playerPosition.col
     });
-    console.log("Player position updated to row: " + playerPosition.row + ", col: " + playerPosition.col);
   }
 
   // Function to move the target to a random grid cell
@@ -19,7 +18,6 @@ $(document).ready(function() {
       'grid-row': targetPosition.row,
       'grid-column': targetPosition.col
     });
-    console.log("Target position updated to row: " + targetPosition.row + ", col: " + targetPosition.col);
   }
 
   // Generate a random position within the 5x5 grid
@@ -45,25 +43,25 @@ $(document).ready(function() {
   $(document).keydown(function(e) {
     switch (e.key) {
       case "ArrowUp":
-        e.preventDefault(); // Prevent page scrolling
+        e.preventDefault();
         if (playerPosition.row > 1) {
           playerPosition.row--;
         }
         break;
       case "ArrowDown":
-        e.preventDefault(); // Prevent page scrolling
+        e.preventDefault();
         if (playerPosition.row < gridSize) {
           playerPosition.row++;
         }
         break;
       case "ArrowLeft":
-        e.preventDefault(); // Prevent page scrolling
+        e.preventDefault();
         if (playerPosition.col > 1) {
           playerPosition.col--;
         }
         break;
       case "ArrowRight":
-        e.preventDefault(); // Prevent page scrolling
+        e.preventDefault();
         if (playerPosition.col < gridSize) {
           playerPosition.col++;
         }
@@ -83,6 +81,40 @@ $(document).ready(function() {
       updateTargetPosition();
     }
   });
+
+// Swipe detection
+$('#game-board').on('touchstart', function(e) {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+$('#game-board').on('touchend', function(e) {
+  touchEndX = e.changedTouches[0].clientX;
+  touchEndY = e.changedTouches[0].clientY;
+  handleSwipe();
+});
+
+// Function to detect swipe direction and handle movement
+function handleSwipe() {
+  let deltaX = touchEndX - touchStartX;
+  let deltaY = touchEndY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Horizontal swipe
+    if (deltaX > 0) {
+      handleMovement("ArrowRight");
+    } else {
+      handleMovement("ArrowLeft");
+    }
+  } else {
+    // Vertical swipe
+    if (deltaY > 0) {
+      handleMovement("ArrowDown");
+    } else {
+      handleMovement("ArrowUp");
+    }
+  }
+}
 
   // Reset button event
   $('#reset-btn').click(function() {
