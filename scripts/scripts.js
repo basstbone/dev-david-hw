@@ -53,14 +53,13 @@ $(document).ready(function() {
       case "ArrowRight":
         if (playerPosition.col < gridSize) {
           playerPosition.col++;
+          console.log("moved right")
         }
         break;
     }
 
     // Update the game piece position on the grid
     updateGamePiecePosition();
-    console.log(`Player moved to: Row ${playerPosition.row}, Column ${playerPosition.col}`); // Debugging: Check position
-
 
     // Check if the player has reached the target
     if (playerPosition.row === targetPosition.row && playerPosition.col === targetPosition.col) {
