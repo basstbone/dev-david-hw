@@ -77,6 +77,7 @@ $(document).ready(function() {
 
   // Swipe detection
   $('#game-board').on('touchstart', function(e) {
+    e.preventDefault();
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   });
@@ -85,6 +86,10 @@ $(document).ready(function() {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
     handleSwipe();
+  });
+
+  $('#game-board').on('touchmove', function(e) {
+    e.preventDefault();
   });
 
   // Function to detect swipe direction and handle movement
