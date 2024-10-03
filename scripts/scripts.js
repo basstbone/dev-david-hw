@@ -24,11 +24,18 @@ $(document).ready(function() {
 
   // Generate a random position within the 5x5 grid
   function generateRandomPosition() {
-    return {
-      row: Math.floor(Math.random() * gridSize) + 1, // Adding 1 because grid-row/grid-column are 1-based
-      col: Math.floor(Math.random() * gridSize) + 1
-    };
+    let newPosition;
+
+    do {
+      newPosition = {
+        row: Math.floor(Math.random() * gridSize) + 1,
+        col: Math.floor(Math.random() * gridSize) + 1
+      };
+    } while (newPosition.row === playerPosition.row && newPosition.col === playerPosition.col); // Repeat if the position is the same as the player's
+
+    return newPosition;
   }
+
 
   // Initial setup: position the game piece and target
   updateGamePiecePosition();
