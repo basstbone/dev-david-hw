@@ -36,24 +36,31 @@ $(document).ready(function() {
   $(document).keydown(function(e) {
     switch (e.key) {
       case "ArrowUp":
-        if (playerPosition.row > 1) {
+        if (playerPosition.row == 1) {
+          break;
+        } else {
           playerPosition.row--;
         }
         break;
       case "ArrowDown":
-        if (playerPosition.row < gridSize) {
+        if (playerPosition.row == gridSize) {
+          break;
+        } else {
           playerPosition.row++;
         }
         break;
       case "ArrowLeft":
-        if (playerPosition.col > 1) {
+        if (playerPosition.col == 1) {
+          break;
+        } else {
           playerPosition.col--;
         }
         break;
       case "ArrowRight":
-        if (playerPosition.col < gridSize) {
-          playerPosition.col++;
-          console.log("moved right")
+        if (playerPosition.row == gridSize) {
+          break;
+        } else {
+          playerPosition.row++;
         }
         break;
     }
