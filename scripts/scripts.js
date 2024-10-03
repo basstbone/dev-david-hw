@@ -69,7 +69,6 @@ $(document).ready(function() {
     if (playerPosition.row === targetPosition.row && playerPosition.col === targetPosition.col) {
       score++;
       $('#score').text('Score: ' + score);
-      alert('You scored! A new target has been generated.');
       targetPosition = generateRandomPosition(); // Generate a new random target
       updateTargetPosition();
     }
