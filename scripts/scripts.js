@@ -75,22 +75,21 @@ $(document).ready(function() {
   }
 
   // Swipe detection
-  const gameBoard = document.getElementById('game-board');
-
-  gameBoard.addEventListener('touchstart', function(e) {
+  $('#game-board').on('touchstart', function(e) {
+    e.preventDefault();
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
-  }, { passive: false }); // Disable passive behavior
+  });
 
-  gameBoard.addEventListener('touchmove', function(e) {
-    e.preventDefault(); // Prevent default scrolling behavior
-  }, { passive: false }); // Disable passive behavior
-
-  gameBoard.addEventListener('touchend', function(e) {
+  $('#game-board').on('touchend', function(e) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
     handleSwipe();
-  }, { passive: false }); // Disable passive behavior
+  });
+
+  $('#game-board').on('touchmove', function(e) {
+    e.preventDefault();
+  });
 
   // Function to detect swipe direction and handle movement
   function handleSwipe() {
