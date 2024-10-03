@@ -6,8 +6,8 @@ body {
 
 footer {
   background-color: darkslategray;
-  position: bottom;
-  bottom: auto;
+  position: absolute;
+  bottom: 0;
 }
 
 /* Define a 5x5 grid */
