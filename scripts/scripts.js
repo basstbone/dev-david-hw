@@ -1,78 +1,83 @@
 $(document).ready(function() {
   let score = 0;
-  const step = 10;
-  const gamePiece = $('#game-piece');
-  const target = $('#target');
-  const gameBoard = $('#game-board');
+  const gridSize = 5;  // 5x5 grid
+  const cellSize = 50; // Each grid cell is 50x50 pixels
+  let playerPosition = { row: 0, col: 0 }; // Initial position of the game piece
+  let targetPosition = generateRandomPosition(); // Random target position
 
-  // Function to randomly position the target
-  function generateRandomPosition() {
-    const maxLeft = gameBoard.width() - target.width();
-    const maxTop = gameBoard.height() - target.height();
-    
-    const randomLeft = Math.floor(Math.random() * maxLeft);
-    const randomTop = Math.floor(Math.random() * maxTop);
-
-    target.css({ top: randomTop + 'px', left: randomLeft + 'px' });
+  // Function to move the game piece on the grid
+  function updateGamePiecePosition() {
+    $('#game-piece').css({
+      top: playerPosition.row * cellSize + 'px',
+      left: playerPosition.col * cellSize + 'px'
+    });
   }
 
-  // Initialize the game by generating the first target position
-  generateRandomPosition();
+  // Function to move the target to a random grid cell
+  function updateTargetPosition() {
+    $('#target').css({
+      top: targetPosition.row * cellSize + 'px',
+      left: targetPosition.col * cellSize + 'px'
+    });
+  }
 
-  // Move the game piece with arrow keys
+  // Generate a random position within the 5x5 grid
+  function generateRandomPosition() {
+    return {
+      row: Math.floor(Math.random() * gridSize),
+      col: Math.floor(Math.random() * gridSize)
+    };
+  }
+
+  // Initial target position setup
+  updateGamePiecePosition();
+  updateTargetPosition();
+
+  // Keydown event to move the game piece with arrow keys
   $(document).keydown(function(e) {
-    let position = gamePiece.position();
-
     switch (e.key) {
       case "ArrowUp":
-        if (position.top > 0) {
-          gamePiece.css('top', position.top - step + 'px');
+        if (playerPosition.row > 0) {
+          playerPosition.row--;
         }
         break;
       case "ArrowDown":
-        if (position.top < gameBoard.height() - gamePiece.height()) {
-          gamePiece.css('top', position.top + step + 'px');
+        if (playerPosition.row < gridSize - 1) {
+          playerPosition.row++;
         }
         break;
       case "ArrowLeft":
-        if (position.left > 0) {
-          gamePiece.css('left', position.left - step + 'px');
+        if (playerPosition.col > 0) {
+          playerPosition.col--;
         }
         break;
       case "ArrowRight":
-        if (position.left < gameBoard.width() - gamePiece.width()) {
-          gamePiece.css('left', position.left + step + 'px');
+        if (playerPosition.col < gridSize - 1) {
+          playerPosition.col++;
         }
         break;
     }
 
-    // Check if the game piece has reached the target
-    if (isCollision(gamePiece, target)) {
+    // Update the game piece position on the board
+    updateGamePiecePosition();
+
+    // Check if the player has reached the target
+    if (playerPosition.row === targetPosition.row && playerPosition.col === targetPosition.col) {
       score++;
       $('#score').text('Score: ' + score);
       alert('You scored! A new target has been generated.');
-      generateRandomPosition(); // Generate a new random target
+      targetPosition = generateRandomPosition(); // Generate a new random target
+      updateTargetPosition();
     }
   });
 
-  // Collision detection between game piece and target
-  function isCollision($div1, $div2) {
-    const d1Offset = $div1.offset();
-    const d2Offset = $div2.offset();
-    
-    return !(
-      ((d1Offset.top + $div1.height()) < d2Offset.top) ||
-      (d1Offset.top > (d2Offset.top + $div2.height())) ||
-      ((d1Offset.left + $div1.width()) < d2Offset.left) ||
-      (d1Offset.left > (d2Offset.left + $div2.width()))
-    );
-  }
-
   // Reset button event
   $('#reset-btn').click(function() {
-    gamePiece.css({ top: '0', left: '0' });
+    playerPosition = { row: 0, col: 0 }; // Reset to top-left corner
+    targetPosition = generateRandomPosition(); // New random target
     score = 0;
     $('#score').text('Score: ' + score);
-    generateRandomPosition(); // Generate a new random target
+    updateGamePiecePosition();
+    updateTargetPosition();
   });
 });
