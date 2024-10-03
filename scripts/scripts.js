@@ -34,23 +34,23 @@ $(document).ready(function() {
 
   // Keydown event to move the game piece with arrow keys
   $(document).keydown(function(e) {
-    switch (e.key) {
-      case "ArrowUp":
+    switch (e.keyCode) {
+      case 38: // ArrowUp
         if (playerPosition.row > 1) {
           playerPosition.row--;
         }
         break;
-      case "ArrowDown":
+      case 40: // ArrowDown
         if (playerPosition.row < gridSize) {
           playerPosition.row++;
         }
         break;
-      case "ArrowLeft":
+      case 37: // ArrowLeft
         if (playerPosition.col > 1) {
           playerPosition.col--;
         }
         break;
-      case "ArrowRight":
+      case 39: // ArrowRight
         if (playerPosition.col < gridSize) {
           playerPosition.col++;
         }
