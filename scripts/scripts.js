@@ -1,35 +1,34 @@
 $(document).ready(function() {
   let score = 0;
-  const gridSize = 5;  // 5x5 grid
-  const cellSize = 50; // Each grid cell is 50x50 pixels
-  let playerPosition = { row: 0, col: 0 }; // Initial position of the game piece
+  const gridSize = 5; // 5x5 grid
+  let playerPosition = { row: 1, col: 1 }; // Initial position of the game piece (1-based grid positions)
   let targetPosition = generateRandomPosition(); // Random target position
 
   // Function to move the game piece on the grid
   function updateGamePiecePosition() {
     $('#game-piece').css({
-      top: playerPosition.row * cellSize + 'px',
-      left: playerPosition.col * cellSize + 'px'
+      'grid-row': playerPosition.row,
+      'grid-column': playerPosition.col
     });
   }
 
   // Function to move the target to a random grid cell
   function updateTargetPosition() {
     $('#target').css({
-      top: targetPosition.row * cellSize + 'px',
-      left: targetPosition.col * cellSize + 'px'
+      'grid-row': targetPosition.row,
+      'grid-column': targetPosition.col
     });
   }
 
   // Generate a random position within the 5x5 grid
   function generateRandomPosition() {
     return {
-      row: Math.floor(Math.random() * gridSize),
-      col: Math.floor(Math.random() * gridSize)
+      row: Math.floor(Math.random() * gridSize) + 1, // Adding 1 because grid-row/grid-column are 1-based
+      col: Math.floor(Math.random() * gridSize) + 1
     };
   }
 
-  // Initial target position setup
+  // Initial setup: position the game piece and target
   updateGamePiecePosition();
   updateTargetPosition();
 
@@ -37,28 +36,28 @@ $(document).ready(function() {
   $(document).keydown(function(e) {
     switch (e.key) {
       case "ArrowUp":
-        if (playerPosition.row > 0) {
+        if (playerPosition.row > 1) {
           playerPosition.row--;
         }
         break;
       case "ArrowDown":
-        if (playerPosition.row < gridSize - 1) {
+        if (playerPosition.row < gridSize) {
           playerPosition.row++;
         }
         break;
       case "ArrowLeft":
-        if (playerPosition.col > 0) {
+        if (playerPosition.col > 1) {
           playerPosition.col--;
         }
         break;
       case "ArrowRight":
-        if (playerPosition.col < gridSize - 1) {
+        if (playerPosition.col < gridSize) {
           playerPosition.col++;
         }
         break;
     }
 
-    // Update the game piece position on the board
+    // Update the game piece position on the grid
     updateGamePiecePosition();
 
     // Check if the player has reached the target
@@ -73,7 +72,7 @@ $(document).ready(function() {
 
   // Reset button event
   $('#reset-btn').click(function() {
-    playerPosition = { row: 0, col: 0 }; // Reset to top-left corner
+    playerPosition = { row: 1, col: 1 }; // Reset to top-left corner
     targetPosition = generateRandomPosition(); // New random target
     score = 0;
     $('#score').text('Score: ' + score);
