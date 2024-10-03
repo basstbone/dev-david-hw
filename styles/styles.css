@@ -4,6 +4,12 @@ body {
   background-size: cover;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 #game-board {
   position: relative;
   width: 250px;
