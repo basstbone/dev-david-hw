@@ -25,6 +25,7 @@ $(document).ready(function() {
     return {
       row: Math.floor(Math.random() * gridSize) + 1, // Adding 1 because grid-row/grid-column are 1-based
       col: Math.floor(Math.random() * gridSize) + 1
+      console.log("test")
     };
   }
 
