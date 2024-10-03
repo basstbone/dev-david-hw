@@ -1,6 +1,6 @@
 $(document).ready(function() {
   let score = 0;
-  const gridSize = 6; // 5x5 grid
+  const gridSize = 5; // 5x5 grid
   let playerPosition = { row: 1, col: 1 }; // Initial position of the game piece (1-based grid positions)
   let targetPosition = generateRandomPosition(); // Random target position
 
