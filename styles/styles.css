@@ -34,6 +34,6 @@ footer {
 
 #target {
   background-color: #28a745;
-  grid-row: 1;
-  grid-column: 1;
+  grid-row: 'targetPosition.row';
+  grid-column: 'targetPosition.col';
 }
