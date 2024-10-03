@@ -5,6 +5,7 @@ body {
 }
 
 footer {
+  background-color: darkslategray;
   position: fixed;
   bottom: 0;
 }
